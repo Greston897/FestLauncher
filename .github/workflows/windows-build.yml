@@ -14,8 +14,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
       - name: Test
-        run: cargo test --release
+        shell: pwsh
+        run: |
+          cargo test --release 2>&1 | Tee-Object -FilePath cargo-test.log
+          $code = $LASTEXITCODE
+          if ($code -ne 0) {
+            $tail = (Get-Content cargo-test.log -Tail 100) -join "`n"
+            $tail = $tail.Replace('%','%25').Replace("`r",'%0D').Replace("`n",'%0A')
+            Write-Output "::error::$tail"
+            exit $code
+          }
       - name: Build
         run: cargo build --release
       - name: Upload executable
