@@ -1,5 +1,5 @@
 use axum::{extract::State, http::{header, HeaderMap, StatusCode}, routing::{get, post}, Json, Router};
-use mc_launcher_core::prelude::*;
+use mc_launcher_core::prelude::{Account, InstallRequest, JavaInstallPolicy, LaunchOptions, Launcher, LoaderSpec, LoaderVersion};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use sha1::{Digest, Sha1};
