@@ -1,0 +1,26 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: ["arena/f660210d-festlauncher"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Test
+        run: cargo test --release
+      - name: Build
+        run: cargo build --release
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: FestVisuals-Windows
+          path: target/release/fest-launcher.exe
+          if-no-files-found: error

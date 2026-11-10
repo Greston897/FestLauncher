@@ -1,0 +1,14 @@
+[package]
+name = "fest-launcher"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", features = ["blocking", "json", "rustls-tls"], default-features = false }
+mc-launcher-core = { git = "https://github.com/Star-tears/mc-launcher-core", rev = "838daff" }
+dirs = "6"
+sha1 = "0.10"
